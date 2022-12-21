@@ -7,5 +7,5 @@ import org.springframework.boot.runApplication
 class CicdGradleProjectApplication
 
 fun main(args: Array<String>) {
-	runApplication<CicdGradleProjectApplication>(*args)
+    runApplication<CicdGradleProjectApplication>(*args)
 }

@@ -7,7 +7,6 @@ import org.apache.hc.core5.http.io.entity.EntityUtils
 import java.io.IOException
 
 class HttpClient5Get {
-
     companion object {
         fun get(url: String): String? {
 
