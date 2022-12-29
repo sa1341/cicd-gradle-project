@@ -7,6 +7,7 @@ plugins {
     id("org.jlleitschuh.gradle.ktlint-idea") version "10.2.1"
     kotlin("jvm") version "1.6.21"
     kotlin("plugin.spring") version "1.6.21"
+    id("project-report")
 }
 
 group = "com.junyoung"
@@ -18,6 +19,7 @@ repositories {
 }
 
 dependencies {
+    implementation("org.springframework.boot:spring-boot-starter-data-redis")
     implementation("org.springframework.boot:spring-boot-starter-web")
     implementation("org.apache.httpcomponents.client5:httpclient5:5.1.3")
     implementation("org.apache.httpcomponents.client5:httpclient5-fluent:5.1.3")
