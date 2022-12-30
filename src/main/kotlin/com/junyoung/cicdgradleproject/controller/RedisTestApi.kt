@@ -22,12 +22,12 @@ class RedisTestApi(
     @PostMapping("/set-string")
     fun putString(): ResponseEntity<String> {
 
-        val fundProduct1 = FundProduct("421224", "카카오파생펀드", FundType.BOND)
+        val fundProduct1 = FundProduct("421224", "카카오증권채권펀드", FundType.BOND)
         val fundProduct2 = FundProduct("320004", "키움디스코펀드", FundType.BOND)
 
         val fundProducts = mutableListOf<FundProduct>()
         fundProducts.add(fundProduct1)
-        fundProducts.add(fundProduct2)
+        //fundProducts.add(fundProduct2)
         redisFundService.saveAllFundProduct(fundProducts)
 
         return ResponseEntity.ok().body("success")
@@ -44,6 +44,16 @@ class RedisTestApi(
             logger.debug { "FundProduct: ${it.name}" }
         }?: kotlin.run {
             throw RuntimeException("해당 펀드코드가 존재하지 않습니다.  code = $code")
+        }
+
+        return ResponseEntity.ok().body("success")
+    }
+
+    @GetMapping("/fund-product")
+    fun getAllFundProduct(): ResponseEntity<String> {
+
+        redisFundService.getAllFundProduct().forEach {
+            logger.debug { "FundProduct Name: ${it.name}" }
         }
 
         return ResponseEntity.ok().body("success")

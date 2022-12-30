@@ -28,4 +28,8 @@ class RedisFundService(
     fun getFundProduct(code: String): FundProduct? {
         return redisFundProductRepository.findByIdOrNull(code)
     }
+
+    fun getAllFundProduct(): List<FundProduct> {
+        return redisFundProductRepository.findAll().toList()
+    }
 }
