@@ -8,7 +8,7 @@ import org.springframework.scheduling.config.ScheduledTaskRegistrar
 const val POOL_SIZE = 10
 
 @Configuration
-class SchedulerConfig: SchedulingConfigurer {
+class SchedulerConfig : SchedulingConfigurer {
 
     override fun configureTasks(taskRegistrar: ScheduledTaskRegistrar) {
 

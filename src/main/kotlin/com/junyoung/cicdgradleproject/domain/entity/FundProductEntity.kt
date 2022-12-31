@@ -5,7 +5,7 @@ import javax.persistence.Entity
 import javax.persistence.Id
 import javax.persistence.Table
 
-@Table(name ="fund_product")
+@Table(name = "fund_product")
 @Entity
 class FundProductEntity(
 

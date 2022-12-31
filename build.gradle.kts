@@ -7,6 +7,7 @@ plugins {
     kotlin("plugin.spring") version "1.6.21"
     id("project-report")
     kotlin("plugin.jpa") version "1.4.32" // JPA를 사용하기 위한 플러그인
+    id("org.sonarqube") version "3.5.0.2730"
 }
 
 allOpen {
@@ -46,4 +47,14 @@ tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile> {
 
 tasks.withType<Test> {
     useJUnitPlatform()
+}
+
+sonarqube {
+    properties {
+        property("sonar.host.url", "http://localhost:9000")
+        property("sonar.login", "squ_3ed81373818636e08a63588bfb028d41f7f4ec1a")
+        property("sonar.language", "kotlin")
+        property("sonar.sources", "src/main/kotlin")
+        property("sonar.sourceEncoding", "UTF-8")
+    }
 }

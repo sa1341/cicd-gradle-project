@@ -42,7 +42,7 @@ class RedisTestApi(
 
         val findFundProduct = fundProduct?.let {
             logger.debug { "FundProduct: ${it.name}" }
-        }?: kotlin.run {
+        } ?: kotlin.run {
             throw RuntimeException("해당 펀드코드가 존재하지 않습니다.  code = $code")
         }
 

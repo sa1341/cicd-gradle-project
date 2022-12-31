@@ -11,4 +11,3 @@ class FundProduct(
     val name: String,
     val type: FundType
 )
-
