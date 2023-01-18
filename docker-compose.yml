@@ -2,7 +2,7 @@ version: '3'
 
 services:
     mysql:
-        container_name: mysql_study
+        container_name: mysql_cicd
         image: mysql/mysql-server:5.7
         environment:
             MYSQL_ROOT_HOST: '%'

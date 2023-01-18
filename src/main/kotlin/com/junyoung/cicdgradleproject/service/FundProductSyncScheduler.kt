@@ -9,7 +9,7 @@ private val logger = KotlinLogging.logger {}
 @Component
 class FundProductSyncScheduler {
 
-    @Scheduled(fixedDelay = 2000)
+    //@Scheduled(fixedDelay = 2000)
     fun cronJobSchedule() {
         logger.debug { "Task Start ${Thread.currentThread().name}" }
     }

@@ -17,16 +17,21 @@ class RedisFundService(
      */
     fun saveAllFundProduct(fundProducts: MutableList<FundProduct>) {
         fundProducts.forEach {
-            saveFundProduct(fundProduct = it)
+            cachingFundProduct(fundProduct = it)
         }
     }
 
-    fun saveFundProduct(fundProduct: FundProduct) {
+    fun cachingFundProduct(fundProduct: FundProduct) {
         redisFundProductRepository.save(fundProduct)
     }
 
+
     fun getFundProduct(code: String): FundProduct? {
-        return redisFundProductRepository.findByIdOrNull(code)
+        return redisFundProductRepository.findByIdOrNull(code)?.let {
+            it
+        } ?: kotlin.run {
+            throw RuntimeException("해당 펀드코드가 존재하지 않습니다.")
+        }
     }
 
     fun getAllFundProduct(): List<FundProduct> {
