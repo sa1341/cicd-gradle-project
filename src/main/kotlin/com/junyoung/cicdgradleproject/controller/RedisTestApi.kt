@@ -27,7 +27,6 @@ class RedisTestApi(
 
         val fundProducts = mutableListOf<FundProduct>()
         fundProducts.add(fundProduct1)
-        //fundProducts.add(fundProduct2)
         redisFundService.saveAllFundProduct(fundProducts)
 
         return ResponseEntity.ok().body("success")

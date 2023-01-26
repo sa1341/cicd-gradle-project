@@ -14,7 +14,7 @@ private val logger = KotlinLogging.logger {}
 @RequestMapping("/api/agit")
 @RestController
 class AgitApi(
-   private val agitWritingService: AgitWritingService
+    private val agitWritingService: AgitWritingService
 ) {
 
     @PostMapping("/article")

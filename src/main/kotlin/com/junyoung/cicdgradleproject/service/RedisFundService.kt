@@ -25,7 +25,6 @@ class RedisFundService(
         redisFundProductRepository.save(fundProduct)
     }
 
-
     fun getFundProduct(code: String): FundProduct? {
         return redisFundProductRepository.findByIdOrNull(code)?.let {
             it

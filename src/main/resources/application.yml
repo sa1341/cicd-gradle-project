@@ -1,0 +1,31 @@
+server:
+  port: 8083
+
+fund:
+  service:
+    url: http://localhost:8082
+
+logging:
+  level:
+    com.junyoung.cicdgradleproject: debug
+
+spring:
+  redis:
+    host: localhost
+    port: 6379
+  datasource:
+    url: jdbc:mysql://127.0.0.1:3306/cicd?useSSL=false&useUnicode=true&characterEncoding=utf8&serverTimezone=Asia/Seoul
+    username: root
+    password:
+  jpa:
+    database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+        show_sql: true
+        format_sql: true
+
+agit:
+  service:
+    url: https://agit.com/send

@@ -8,7 +8,6 @@ import mu.KotlinLogging
 import org.apache.hc.client5.http.classic.methods.HttpPost
 import org.apache.hc.client5.http.impl.classic.CloseableHttpClient
 import org.apache.hc.core5.http.ContentType
-import org.apache.hc.core5.http.io.entity.EntityUtils
 import org.apache.hc.core5.http.io.entity.StringEntity
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.stereotype.Service
@@ -32,8 +31,8 @@ class AgitWritingService(
         val httpPost = HttpPost(serviceUrl)
         httpPost.entity = StringEntity(requestData, ContentType.APPLICATION_JSON)
 
-        //val response = httpClient.execute(httpPost)
-        //val agitPostRes = mapper.readValue(EntityUtils.toString(response.entity), AgitPostRes::class.java)
+        // val response = httpClient.execute(httpPost)
+        // val agitPostRes = mapper.readValue(EntityUtils.toString(response.entity), AgitPostRes::class.java)
         val agitPostRes = AgitPostRes(status = "SUCCESS", id = 1, "https://agit.kakaopaysec.com")
         logger.debug { "response: $agitPostRes" }
 
