@@ -20,9 +20,9 @@ class FundApi(
         return fundProductService.getFundProduct(fundCode = fundCode)
     }
 
-    @PostMapping("/funds/create-fund")
+   /* @PostMapping("/funds/create-fund")
     fun saveFundProduct(@RequestBody fundProductReq: FundProductReq): ResponseEntity<String> {
         fundProductService.saveFundProduct(fundProductReq)
         return ResponseEntity.ok("SUCCESS")
-    }
+    }*/
 }

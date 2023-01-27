@@ -7,6 +7,7 @@ fund:
 
 logging:
   level:
+    p6spy: info
     com.junyoung.cicdgradleproject: debug
 
 spring:
@@ -29,3 +30,4 @@ spring:
 agit:
   service:
     url: https://agit.com/send
+

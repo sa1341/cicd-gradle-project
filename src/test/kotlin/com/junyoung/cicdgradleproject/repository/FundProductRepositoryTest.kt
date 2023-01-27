@@ -1,54 +1,37 @@
 package com.junyoung.cicdgradleproject.repository
 
-import com.junyoung.cicdgradleproject.const.FundType
-import com.junyoung.cicdgradleproject.domain.entity.FundProductEntity
-import com.junyoung.cicdgradleproject.domain.repository.FundProductJpaRepository
+import com.junyoung.cicdgradleproject.data.fundProductEntity
 import io.kotest.matchers.shouldBe
-import io.mockk.every
-import io.mockk.mockk
-import org.assertj.core.api.Assertions
-import org.assertj.core.api.Assertions.assertThat
+import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.context.SpringBootTest
-import org.springframework.data.repository.findByIdOrNull
-import org.springframework.test.annotation.Rollback
+import org.springframework.test.context.ActiveProfiles
 import org.springframework.transaction.annotation.Transactional
 
+@ActiveProfiles("test")
 @SpringBootTest
 class FundProductRepositoryTest {
 
-    val fundCode = "260005"
+    @Autowired
+    lateinit var fundProductRepository: FundProductRepository
 
-    @Rollback(value = false)
-    @Transactional
-    @Test
-    fun saveFundProduct() {
-        val repository = mockk<FundProductRepository>()
-
-        // given
-        every { repository.save(any()) } returns FundProductEntity(code = "260005", name = "한화쏠쏠이", type = FundType.STOCK)
-
-        // when
-        val savedFundProduct = repository.save(FundProductEntity(code = "260005", name = "한화쏠쏠이", type = FundType.STOCK))
-
-        // then
-        savedFundProduct.code shouldBe fundCode
+    @BeforeEach
+    fun setUp() {
+        val savedFundProduct = fundProductRepository.save(fundProductEntity)
+        println("SavedFundProduct = $savedFundProduct")
     }
 
     @Transactional(readOnly = true)
     @Test
     fun getFundProduct() {
         // given
-        val repository = mockk<FundProductRepository>()
-
-        // given
-        every { repository.findByIdOrNull(any()) } returns FundProductEntity(code = "260005", name = "키움똑똑이", type = FundType.STOCK)
+        val fundCode = "260005"
 
         // when
-        val findFundProduct = repository.findByIdOrNull("Dummy")
+        val findFundProduct = fundProductRepository.findByFundCode(fundCode)
 
         // then
-        findFundProduct?.name shouldBe "키움똑똑이"
+        findFundProduct?.productName shouldBe "키움똑똑이"
     }
 }

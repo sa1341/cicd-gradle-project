@@ -38,6 +38,8 @@ dependencies {
     testImplementation("org.springframework.boot:spring-boot-starter-test")
     testImplementation("io.kotest:kotest-runner-junit5:5.3.0")
     testImplementation("com.ninja-squad:springmockk:3.1.1")
+    testRuntimeOnly("com.h2database:h2")
+    testImplementation("p6spy:p6spy:3.9.1")
 }
 
 tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile> {
