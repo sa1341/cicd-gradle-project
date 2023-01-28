@@ -1,11 +1,12 @@
 package com.junyoung.cicdgradleproject.controller
 
 import com.junyoung.cicdgradleproject.domain.entity.FundProductEntity
-import com.junyoung.cicdgradleproject.dto.FundProductReq
 import com.junyoung.cicdgradleproject.service.FundProductService
 import mu.KotlinLogging
-import org.springframework.http.ResponseEntity
-import org.springframework.web.bind.annotation.*
+import org.springframework.web.bind.annotation.GetMapping
+import org.springframework.web.bind.annotation.PathVariable
+import org.springframework.web.bind.annotation.RequestMapping
+import org.springframework.web.bind.annotation.RestController
 
 private val logger = KotlinLogging.logger {}
 

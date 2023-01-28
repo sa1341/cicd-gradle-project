@@ -9,7 +9,7 @@ spring:
     username: sa
     password:
     hikari:
-      jdbc-url: jdbc:p6spy:h2:mem:testdb;MODE=MYSQL;DB_CLOSE_DELAY=-1
+      jdbc-url: jdbc:p6spy:h2:mem:testdb;MODE=MYSQL;DB_CLOSE_DELAY=-1;DATABASE_TO_UPPER=false;
 
   redis:
     host: localhost

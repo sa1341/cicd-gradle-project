@@ -5,7 +5,6 @@ import java.math.BigDecimal
 import java.math.BigInteger
 import java.time.LocalDate
 
-
 internal val fundProductEntity = FundProductEntity(
     fundProductId = 1234L,
     fundCode = "260005",

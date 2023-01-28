@@ -1,6 +1,8 @@
 package com.junyoung.cicdgradleproject.repository
 
 import com.junyoung.cicdgradleproject.data.fundProductEntity
+import com.junyoung.cicdgradleproject.domain.entity.QFundProductEntity
+import com.querydsl.jpa.impl.JPAQueryFactory
 import io.kotest.matchers.shouldBe
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
@@ -16,6 +18,9 @@ class FundProductRepositoryTest {
     @Autowired
     lateinit var fundProductRepository: FundProductRepository
 
+    @Autowired
+    lateinit var jpaQueryFactory: JPAQueryFactory
+    
     @BeforeEach
     fun setUp() {
         val savedFundProduct = fundProductRepository.save(fundProductEntity)
@@ -29,7 +34,10 @@ class FundProductRepositoryTest {
         val fundCode = "260005"
 
         // when
-        val findFundProduct = fundProductRepository.findByFundCode(fundCode)
+        //val findFundProduct = fundProductRepository.findByFundCode(fundCode)
+        val findFundProduct = jpaQueryFactory.selectFrom(QFundProductEntity.fundProductEntity)
+            .where(QFundProductEntity.fundProductEntity.fundCode.eq(fundCode))
+            .fetchOne()
 
         // then
         findFundProduct?.productName shouldBe "키움똑똑이"

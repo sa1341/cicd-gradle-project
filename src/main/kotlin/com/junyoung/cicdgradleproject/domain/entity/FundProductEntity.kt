@@ -1,18 +1,17 @@
 package com.junyoung.cicdgradleproject.domain.entity
 
 import com.junyoung.cicdgradleproject.domain.common.AuditEntity
-import javax.persistence.Entity
-import javax.persistence.Id
-import javax.persistence.Table
-
 import org.hibernate.annotations.DynamicUpdate
 import org.jetbrains.annotations.NotNull
 import java.math.BigDecimal
 import java.math.BigInteger
 import java.time.LocalDate
 import javax.persistence.Column
+import javax.persistence.Entity
 import javax.persistence.GeneratedValue
 import javax.persistence.GenerationType
+import javax.persistence.Id
+import javax.persistence.Table
 
 @Entity
 @DynamicUpdate
@@ -558,4 +557,3 @@ data class FundProductEntity(
     @Column(name = "fnd_dev_bas_dt")
     val deviationBaseDate: LocalDate? = null
 ) : AuditEntity()
-
