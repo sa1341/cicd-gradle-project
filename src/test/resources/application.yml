@@ -9,7 +9,7 @@ spring:
     username: sa
     password:
     hikari:
-      jdbc-url: jdbc:p6spy:h2:mem:testdb;MODE=MYSQL;DB_CLOSE_DELAY=-1;DATABASE_TO_UPPER=false;
+      jdbc-url: jdbc:p6spy:h2:mem:testdb;MODE=MYSQL;DB_CLOSE_DELAY=-1
 
   redis:
     host: localhost
@@ -21,6 +21,7 @@ spring:
       hibernate:
         format_sql: true
         dialect: org.hibernate.dialect.MySQL8Dialect
+        show_sql: true
 
 agit:
   service:

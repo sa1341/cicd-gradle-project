@@ -1,7 +1,7 @@
 package com.junyoung.cicdgradleproject.controller
 
 import com.junyoung.cicdgradleproject.const.FundType
-import com.junyoung.cicdgradleproject.domain.entity.FundProduct
+import com.junyoung.cicdgradleproject.domain.product.FundProduct
 import com.junyoung.cicdgradleproject.service.RedisFundService
 import mu.KotlinLogging
 import org.springframework.http.ResponseEntity
@@ -22,11 +22,10 @@ class RedisTestApi(
     @PostMapping("/set-string")
     fun putString(): ResponseEntity<String> {
 
-        val fundProduct1 = FundProduct("421224", "카카오증권채권펀드", FundType.BOND)
-        val fundProduct2 = FundProduct("320004", "키움디스코펀드", FundType.BOND)
+        val fundProduct = FundProduct("421224", "카카오증권채권펀드", FundType.BOND)
 
         val fundProducts = mutableListOf<FundProduct>()
-        fundProducts.add(fundProduct1)
+        fundProducts.add(fundProduct)
         redisFundService.saveAllFundProduct(fundProducts)
 
         return ResponseEntity.ok().body("success")
@@ -38,12 +37,6 @@ class RedisTestApi(
         logger.debug { "FundCode: $code" }
 
         val fundProduct = redisFundService.getFundProduct(code)
-
-        val findFundProduct = fundProduct?.let {
-            logger.debug { "FundProduct: ${it.name}" }
-        } ?: kotlin.run {
-            throw RuntimeException("해당 펀드코드가 존재하지 않습니다.  code = $code")
-        }
 
         return ResponseEntity.ok().body("success")
     }

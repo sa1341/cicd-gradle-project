@@ -9,6 +9,7 @@ import org.apache.hc.client5.http.classic.methods.HttpPost
 import org.apache.hc.client5.http.impl.classic.CloseableHttpClient
 import org.apache.hc.core5.http.ContentType
 import org.apache.hc.core5.http.io.entity.StringEntity
+import org.springframework.beans.factory.annotation.Qualifier
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.stereotype.Service
 
@@ -17,7 +18,7 @@ private val logger = KotlinLogging.logger {}
 @Service
 class AgitWritingService(
     private val httpClient: CloseableHttpClient,
-    private val mapper: ObjectMapper,
+    @Qualifier("restTemplateObjectMapper") private val mapper: ObjectMapper,
     @Value("\${agit.service.url}") private val serviceUrl: String
 ) {
 

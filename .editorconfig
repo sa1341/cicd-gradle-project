@@ -12,4 +12,4 @@ tab_width = 4
 [{*.yaml,*.yml}]
 indent_size = 2
 
-disabled_rules = no-wildcard-imports,import-ordering,comment-spacing
+disabled_rules = import-ordering,comment-spacing

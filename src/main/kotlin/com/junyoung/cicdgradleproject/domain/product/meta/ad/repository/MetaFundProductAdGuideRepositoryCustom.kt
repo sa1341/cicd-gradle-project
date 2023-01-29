@@ -1,0 +1,3 @@
+package com.junyoung.cicdgradleproject.domain.product.meta.ad.repository
+
+interface MetaFundProductAdGuideRepositoryCustom

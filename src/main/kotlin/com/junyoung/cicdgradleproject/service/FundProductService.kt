@@ -1,9 +1,8 @@
 package com.junyoung.cicdgradleproject.service
 
-import com.junyoung.cicdgradleproject.domain.entity.FundProductEntity
+import com.junyoung.cicdgradleproject.domain.product.FundProductEntity
 import com.junyoung.cicdgradleproject.dto.FundProductReq
 import com.junyoung.cicdgradleproject.repository.FundProductRepository
-import org.springframework.data.repository.findByIdOrNull
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
 import java.math.BigDecimal
@@ -17,7 +16,7 @@ class FundProductService(
 
     @Transactional(readOnly = true)
     fun getFundProduct(fundCode: String): FundProductEntity? {
-        return fundProductRepository.findByIdOrNull(fundCode)?.let {
+        return fundProductRepository.findByFundCode(fundCode)?.let {
             it
         } ?: kotlin.run {
             throw RuntimeException("해당 펀드코드가 존재하지 않습니다.")

@@ -34,6 +34,7 @@ dependencies {
     implementation("org.springframework.boot:spring-boot-starter-web")
     implementation("org.springframework.boot:spring-boot-starter-validation")
     implementation("org.springframework.boot:spring-boot-starter-data-jpa")
+    implementation("org.apache.httpcomponents:httpclient:4.5.13")
     implementation("org.apache.httpcomponents.client5:httpclient5:5.1.3")
     implementation("org.apache.httpcomponents.client5:httpclient5-fluent:5.1.3")
     implementation("io.github.microutils:kotlin-logging:2.1.23")

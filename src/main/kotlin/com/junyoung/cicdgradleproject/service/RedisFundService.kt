@@ -1,7 +1,7 @@
 package com.junyoung.cicdgradleproject.service
 
-import com.junyoung.cicdgradleproject.domain.entity.FundProduct
-import com.junyoung.cicdgradleproject.domain.repository.RedisFundProductRepository
+import com.junyoung.cicdgradleproject.domain.product.FundProduct
+import com.junyoung.cicdgradleproject.domain.product.repository.RedisFundProductRepository
 import org.springframework.data.repository.findByIdOrNull
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
