@@ -1,0 +1,13 @@
+{
+    "request": {
+        "method": "GET",
+        "url": "/stub/wire-mock"
+    },
+    "response": {
+        "headers": {
+            "Content-Type": "application/json"
+        },
+        "status": 200,
+        "body": "{\"name\" : \"임준영\", \"id\" : \"31\"}"
+    }
+}

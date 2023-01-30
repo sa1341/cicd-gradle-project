@@ -31,3 +31,4 @@ logging:
   level:
     org.hibernate.type.descriptor.sql.BasicBinder: trace
 
+wiremock.server.port: 8888

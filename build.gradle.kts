@@ -48,6 +48,7 @@ dependencies {
     testImplementation("com.ninja-squad:springmockk:3.1.1")
     testRuntimeOnly("com.h2database:h2")
     testImplementation("p6spy:p6spy:3.9.1")
+    testImplementation("com.github.tomakehurst:wiremock:2.27.2")
 }
 
 tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile> {
