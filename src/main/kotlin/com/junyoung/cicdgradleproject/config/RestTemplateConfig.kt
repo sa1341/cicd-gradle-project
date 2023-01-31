@@ -32,7 +32,6 @@ class RestTemplateConfig {
         val factory = HttpComponentsClientHttpRequestFactory(httpClient)
         val converter = MappingJackson2HttpMessageConverter(objectMapper)
         return RestTemplateBuilder()
-            //.rootUri(API_ROOT_URL)
             .requestFactory { BufferingClientHttpRequestFactory(factory) }
             .additionalMessageConverters(converter)
             .additionalInterceptors(ApiLoggingInterceptor(objectMapper))

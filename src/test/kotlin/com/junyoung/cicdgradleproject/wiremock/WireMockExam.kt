@@ -1,16 +1,17 @@
 package com.junyoung.cicdgradleproject.wiremock
 
-import com.github.tomakehurst.wiremock.WireMockServer
-import com.github.tomakehurst.wiremock.client.WireMock
-import com.github.tomakehurst.wiremock.client.WireMock.*
-import org.apache.http.HttpHeaders
+import com.fasterxml.jackson.databind.ObjectMapper
+import com.github.tomakehurst.wiremock.client.WireMock.getRequestedFor
+import com.github.tomakehurst.wiremock.client.WireMock.postRequestedFor
+import com.github.tomakehurst.wiremock.client.WireMock.urlEqualTo
+import com.junyoung.cicdgradleproject.config.WireMockBeanFactory
+import com.junyoung.cicdgradleproject.config.WireMockContextInitializer
+import com.junyoung.cicdgradleproject.util.WireMockUtils
 import org.junit.jupiter.api.AfterEach
 import org.junit.jupiter.api.Test
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.boot.test.context.SpringBootTest
-import org.springframework.http.HttpStatus
-import org.springframework.http.MediaType
 import org.springframework.test.context.ActiveProfiles
 import org.springframework.test.context.ContextConfiguration
 import org.springframework.web.client.RestTemplate
@@ -19,39 +20,29 @@ import org.springframework.web.client.postForObject
 @ContextConfiguration(initializers = [WireMockContextInitializer::class])
 @SpringBootTest
 @ActiveProfiles("test")
-class WireMockExam {
-
+class WireMockExam @Autowired constructor(
     @Value("\${wiremock.server.port}")
-    lateinit var mockPort: String
-
-    @Autowired
-    lateinit var wireMockServer: WireMockServer
-
-    @Autowired
-    lateinit var apiRestTemplate: RestTemplate
+    private val mockPort: String,
+    private val apiRestTemplate: RestTemplate,
+    private val wireMockBeanFactory: WireMockBeanFactory,
+    private val restTemplateObjectMapper: ObjectMapper
+) {
+    private val url = "/test/wire-mock"
+    private val wireMockServer = wireMockBeanFactory.fundWireMock()
+    private val wireMockUtils = WireMockUtils(wireMockServer, url, restTemplateObjectMapper)
 
     @AfterEach
     fun afterEach() {
         wireMockServer.resetAll()
     }
 
-    // stub 정의 메서드
-    private fun stubResponse(mockUrl: String, responseBody: String, responseStatus: Int = HttpStatus.OK.value()) {
-        wireMockServer.stubFor(
-            WireMock.any(WireMock.urlPathEqualTo(mockUrl))
-                .willReturn(
-                    aResponse()
-                        .withStatus(responseStatus)
-                        .withHeader(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE)
-                        .withBody(responseBody)
-                )
-        )
-    }
-
     @Test
     fun `미리 정의된 stub를 사용한 wiremock 테스트`() {
+
+        val responseBody = restTemplateObjectMapper.writeValueAsString(TestData("junyoung", 32))
+
         // given
-        stubResponse(url, responseBody)
+        wireMockUtils.stubResponse(url, responseBody)
 
         // when
         val res = apiRestTemplate.postForObject<TestData>(
@@ -90,7 +81,7 @@ class WireMockExam {
            "name": "임준영",
            "age": 32
          }
-    """.trimIndent()
+        """.trimIndent()
     }
 
     private data class TestData(

@@ -5,10 +5,12 @@ plugins {
     id("org.jlleitschuh.gradle.ktlint-idea") version "10.2.1"
     id("project-report")
     id("org.sonarqube") version "3.5.0.2730"
+    `java-test-fixtures`
     kotlin("jvm") version "1.6.21"
     kotlin("plugin.spring") version "1.6.21"
     kotlin("plugin.jpa") version "1.4.32" // JPA를 사용하기 위한 플러그인
     kotlin("kapt") version "1.7.10"
+    id("java-test-fixtures")
 }
 
 val querydslVersion = "5.0.0"
@@ -49,6 +51,10 @@ dependencies {
     testRuntimeOnly("com.h2database:h2")
     testImplementation("p6spy:p6spy:3.9.1")
     testImplementation("com.github.tomakehurst:wiremock:2.27.2")
+    testFixturesImplementation("io.github.microutils:kotlin-logging:1.5.9")
+    testFixturesImplementation("com.github.tomakehurst:wiremock:2.27.2")
+    testFixturesImplementation("org.springframework.boot:spring-boot-starter-test")
+    testFixturesImplementation("org.springframework.boot:spring-boot-starter-web")
 }
 
 tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile> {
