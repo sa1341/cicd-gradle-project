@@ -27,7 +27,6 @@ class MetaFundProductRepositoryTest {
     @DisplayName("메타 펀드상품정보를 저장한다.")
     @Transactional
     fun createMetaFundProduct() {
-
         // given
         val fundCode = "260005"
         metaFundProductRepository.save(metaFundProductEntity)

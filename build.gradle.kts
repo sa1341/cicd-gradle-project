@@ -14,6 +14,7 @@ plugins {
 }
 
 val querydslVersion = "5.0.0"
+extra["springCloudVersion"] = "2021.0.3"
 
 allOpen {
     annotation("javax.persistence.Entity")
@@ -29,9 +30,20 @@ repositories {
     mavenCentral()
 }
 
+dependencyManagement {
+    imports {
+        mavenBom("org.springframework.cloud:spring-cloud-dependencies:${property("springCloudVersion")}")
+    }
+}
+
 dependencies {
     kapt("com.querydsl:querydsl-apt:$querydslVersion:jpa")
     implementation("com.querydsl:querydsl-jpa:$querydslVersion")
+    implementation("io.github.resilience4j:resilience4j-spring-boot2")
+    implementation("io.github.resilience4j:resilience4j-circuitbreaker")
+    implementation("io.github.resilience4j:resilience4j-timelimiter")
+    implementation("org.springframework.boot:spring-boot-starter-aop")
+    implementation("org.springframework.boot:spring-boot-starter-actuator")
     implementation("org.springframework.boot:spring-boot-starter-data-redis")
     implementation("org.springframework.boot:spring-boot-starter-web")
     implementation("org.springframework.boot:spring-boot-starter-validation")
