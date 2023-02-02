@@ -1,0 +1,13 @@
+ @startuml
+ participant "clssA" as A
+ participant "clssB" as B
+
+ A -> B:callA(int x)
+ B --> A:callBackB(void)
+
+alt errorcase
+A -> B:callerrorcaseA()
+B --> A:errorcaseB()
+end alt
+
+@enduml

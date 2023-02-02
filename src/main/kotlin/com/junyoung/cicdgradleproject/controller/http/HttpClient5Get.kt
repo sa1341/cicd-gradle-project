@@ -9,10 +9,8 @@ import java.io.IOException
 class HttpClient5Get {
     companion object {
         fun get(url: String): String? {
-
             var resultContent: String? = null
             val httpGet = HttpGet(url)
-
             var httpClient = HttpClients.createDefault()
 
             try {
@@ -21,7 +19,7 @@ class HttpClient5Get {
                         val response = it.execute(httpGet)
                         println("${response.version}")
                         println("${response.code}")
-                        println("${response.reasonPhrase}")
+                        println(response.reasonPhrase)
                         val entity = response.entity
                         resultContent = EntityUtils.toString(entity)
                     }

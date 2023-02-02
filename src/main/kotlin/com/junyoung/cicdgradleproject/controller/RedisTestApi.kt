@@ -37,17 +37,14 @@ class RedisTestApi(
         logger.debug { "FundCode: $code" }
 
         val fundProduct = redisFundService.getFundProduct(code)
-
         return ResponseEntity.ok().body("success")
     }
 
     @GetMapping("/fund-product")
     fun getAllFundProduct(): ResponseEntity<String> {
-
         redisFundService.getAllFundProduct().forEach {
             logger.debug { "FundProduct Name: ${it.name}" }
         }
-
         return ResponseEntity.ok().body("success")
     }
 }
