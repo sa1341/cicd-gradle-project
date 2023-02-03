@@ -22,6 +22,8 @@ spring:
         format_sql: true
         dialect: org.hibernate.dialect.MySQL8Dialect
         show_sql: true
+  main:
+    allow-bean-definition-overriding: true
 
 agit:
   service:
@@ -32,4 +34,3 @@ logging:
     org.hibernate.type.descriptor.sql.BasicBinder: trace
 
 wiremock.server.port: 8090
-

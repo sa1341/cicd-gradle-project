@@ -8,15 +8,16 @@ import io.kotest.matchers.shouldBe
 import io.mockk.every
 import io.mockk.mockk
 import io.mockk.verify
+import org.junit.jupiter.api.Tag
 import org.junit.jupiter.api.Test
 import org.springframework.boot.test.context.SpringBootTest
 
+@Tag("integrationTest")
 @SpringBootTest
 class FundProductBuyingTest {
 
     @Test
     fun `펀드 매수신청을 테스트한다`() {
-
         // given
         val mockAdapter = mockk<FundOutboundAdapter>()
 

@@ -80,6 +80,18 @@ tasks.withType<Test> {
     useJUnitPlatform()
 }
 
+tasks.register<Test>("unitTest") {
+    useJUnitPlatform {
+        includeTags("unit")
+    }
+}
+
+tasks.register<Test>("integrationTest") {
+    useJUnitPlatform {
+        includeTags("integration")
+    }
+}
+
 sonarqube {
     properties {
         property("sonar.host.url", "http://localhost:9000")

@@ -11,13 +11,11 @@ const val WIRE_MOCK_BEAN_NAME = "wireMock"
 
 class WireMockContextInitializer : ApplicationContextInitializer<ConfigurableApplicationContext> {
     override fun initialize(applicationContext: ConfigurableApplicationContext) {
-
         val wmServer = WireMockServer(
             WireMockConfiguration()
                 .port(8090)
                 .withRootDirectory("src/test/resources/wiremock")
         )
-
         wmServer.start()
 
         applicationContext.beanFactory.registerSingleton(WIRE_MOCK_BEAN_NAME, wmServer)
