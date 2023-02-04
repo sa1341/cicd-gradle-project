@@ -29,6 +29,7 @@ class FundApi(
 
     @GetMapping("/funds/{fundCode}")
     fun getFundProduct(@PathVariable(required = true) fundCode: String): FundProductEntity? {
+        logger.info { "fundCode = $fundCode" }
         return fundProductService.getFundProduct(fundCode = fundCode)
     }
 
