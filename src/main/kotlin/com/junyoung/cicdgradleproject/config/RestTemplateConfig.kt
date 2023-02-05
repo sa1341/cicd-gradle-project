@@ -1,6 +1,7 @@
 package com.junyoung.cicdgradleproject.config
 
 import com.fasterxml.jackson.databind.ObjectMapper
+import com.junyoung.cicdgradleproject.error.handler.FundErrorResponseHandler
 import mu.KotlinLogging
 import org.apache.http.client.HttpClient
 import org.apache.http.impl.client.HttpClients
@@ -24,7 +25,10 @@ const val API_ROOT_URL = "http://localhost:8082"
 class RestTemplateConfig {
 
     @Bean
-    fun apiRestTemplate(objectMapper: ObjectMapper): RestTemplate {
+    fun apiRestTemplate(
+        objectMapper: ObjectMapper,
+        errorHandlerObjectMapper: ObjectMapper
+    ): RestTemplate {
         val httpClient: HttpClient = HttpClients.custom()
             .setMaxConnTotal(200)
             .setMaxConnPerRoute(100)
@@ -35,6 +39,7 @@ class RestTemplateConfig {
             .requestFactory { BufferingClientHttpRequestFactory(factory) }
             .additionalMessageConverters(converter)
             .additionalInterceptors(ApiLoggingInterceptor(objectMapper))
+            .errorHandler(FundErrorResponseHandler(errorHandlerObjectMapper))
             .setConnectTimeout(Duration.ofSeconds(1))
             .setReadTimeout(Duration.ofSeconds(15))
             .build()
