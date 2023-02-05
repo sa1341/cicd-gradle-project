@@ -12,7 +12,7 @@ class FundOutboundAdapter(
 
     fun buyFund(fundBuyingReq: FundBuyingReq): FundBuyingRes? {
         return apiRestTemplate.postForObject(
-            "/api/v1/test-post",
+            "http://localhost:8082/api/v1/test-post",
             fundBuyingReq,
             FundBuyingRes::class.java
         ) ?: throw RuntimeException("펀드 호출 실패")

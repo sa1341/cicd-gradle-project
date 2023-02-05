@@ -22,7 +22,7 @@ class FundProductBuyingTest {
         val mockAdapter = mockk<FundOutboundAdapter>()
 
         // when
-        every { mockAdapter.buyFund(fundBuyingReq) } returns FundBuyingRes("FAIL!")
+        every { mockAdapter.buyFund(fundBuyingReq) } returns FundBuyingRes("FAIL!", "ahffkdbfkrql")
 
         val sut = FundBuyingService(mockAdapter)
 

@@ -12,7 +12,6 @@ private val logger = KotlinLogging.logger {}
 class FundBuyingService(
     private val fundOutboundAdapter: FundOutboundAdapter
 ) {
-
     fun buyFund(fundBuyingReq: FundBuyingReq): FundBuyingRes? {
         val res = fundOutboundAdapter.buyFund(fundBuyingReq)
         logger.info { "Response = $res" }
