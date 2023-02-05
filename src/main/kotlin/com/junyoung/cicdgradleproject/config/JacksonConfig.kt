@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonInclude
 import com.fasterxml.jackson.databind.DeserializationFeature
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.fasterxml.jackson.databind.PropertyNamingStrategies
+import com.fasterxml.jackson.datatype.jdk8.Jdk8Module
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule
 import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateSerializer
 import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateTimeSerializer
@@ -35,10 +36,21 @@ class JacksonConfig {
             .setDefaultPropertyInclusion(JsonInclude.Include.NON_NULL)
     }
 
+    @Bean
+    fun errorHandlerObjectMapper(): ObjectMapper {
+        return jacksonObjectMapper()
+            .registerModule(Jdk8Module())
+            .registerModule(
+                JavaTimeModule().addSerializer(
+                    LocalDate::class.java,
+                    LocalDateSerializer(DateTimeFormatter.ISO_DATE)
+                )
+            )
+            .configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false)
+            .configure(DeserializationFeature.READ_DATE_TIMESTAMPS_AS_NANOSECONDS, false)
+    }
+
     companion object {
         const val DEFAULT_DATE_PATTERN = "yyyy-MM-dd'T'HH:mm:ss.SSS"
     }
-
-    @Bean
-    fun domainObjectMapper(): ObjectMapper = jacksonObjectMapper()
 }

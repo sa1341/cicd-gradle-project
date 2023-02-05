@@ -21,6 +21,7 @@ class FundProductRepositoryTest {
 
     @Autowired
     lateinit var jpaQueryFactory: JPAQueryFactory
+
     @BeforeEach
     fun setUp() {
         val savedFundProduct = fundProductRepository.save(fundProductEntity)
