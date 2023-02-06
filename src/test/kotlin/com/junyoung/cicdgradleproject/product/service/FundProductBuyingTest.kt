@@ -38,6 +38,11 @@ class FundProductBuyingTest {
     }
 
     companion object {
-        val fundBuyingReq = FundBuyingReq(accountNumber = "02000162758",  fundCod = "2006001",  name = "임준영",  age = 32)
+        val fundBuyingReq = FundBuyingReq(
+            accountNumber = "02000162758",
+            fundCod = "2006001",
+            name = "임준영",
+            age = 32
+        )
     }
 }
