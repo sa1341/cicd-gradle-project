@@ -21,9 +21,7 @@ class RedisTestApi(
 
     @PostMapping("/set-string")
     fun putString(): ResponseEntity<String> {
-
         val fundProduct = FundProduct("421224", "카카오증권채권펀드", FundType.BOND)
-
         val fundProducts = mutableListOf<FundProduct>()
         fundProducts.add(fundProduct)
         redisFundService.saveAllFundProduct(fundProducts)
@@ -33,10 +31,9 @@ class RedisTestApi(
 
     @GetMapping("/fund-product/{code}")
     fun getFundProduct(@PathVariable code: String): ResponseEntity<String> {
-
         logger.debug { "FundCode: $code" }
-
         val fundProduct = redisFundService.getFundProduct(code)
+        logger.debug { "FUndProduct = $fundProduct" }
         return ResponseEntity.ok().body("success")
     }
 

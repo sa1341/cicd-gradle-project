@@ -1,0 +1,78 @@
+spring:
+  h2:
+    console:
+      enabled: true
+      path: /h2-console
+
+  datasource:
+    driver-class-name: com.p6spy.engine.spy.P6SpyDriver
+    username: sa
+    password:
+    hikari:
+      jdbc-url: jdbc:p6spy:h2:mem:testdb;MODE=MYSQL;DB_CLOSE_DELAY=-1
+
+  redis:
+    host: localhost
+    port: 6379
+
+  jpa:
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+        dialect: org.hibernate.dialect.MySQL8Dialect
+        show_sql: true
+    hibernate:
+      ddl-auto: update
+
+  main:
+    allow-bean-definition-overriding: true
+
+agit:
+  service:
+    url: https://agit.com/send
+
+logging:
+  level:
+    org.hibernate.type.descriptor.sql.BasicBinder: trace
+
+wiremock.server.port: 8090
+
+resilience4j:
+  circuitbreaker:
+    configs:
+      default:
+        registerHealthIndicator: true
+        minimum-number-of-calls: 100
+        failure-rate-threshold: 50
+        slow-call-duration-threshold: 60000
+        slow-call-rate-threshold: 100
+        permitted-number-of-calls-in-half-open-state: 10
+    instances:
+      money:
+        base-config: default
+        wait-duration-in-open-state: 30000
+        record-exceptions:
+          - org.springframework.web.client.RestClientException
+          - java.util.concurrent.TimeoutException
+          - java.io.IOException
+        ignore-exceptions:
+          - java.lang.Exception
+  retry:
+    configs:
+      default:
+        max-attempts: 3
+        wait-duration: 500
+    instances:
+      money:
+        base-config: default
+        retry-exceptions:
+          - org.springframework.web.client.RestClientException
+          - java.util.concurrent.TimeoutException
+          - java.io.IOException
+        ignore-exceptions:
+          - java.lang.Exception
+
+wiremock:
+  server:
+    port: 8090

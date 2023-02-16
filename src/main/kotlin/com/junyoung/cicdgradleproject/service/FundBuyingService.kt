@@ -4,6 +4,7 @@ import com.junyoung.cicdgradleproject.domain.product.meta.service.FundOutboundAd
 import com.junyoung.cicdgradleproject.dto.FundBuyingReq
 import com.junyoung.cicdgradleproject.dto.FundBuyingRes
 import mu.KotlinLogging
+import org.springframework.beans.factory.annotation.Value
 import org.springframework.stereotype.Service
 
 private val logger = KotlinLogging.logger {}

@@ -9,7 +9,6 @@ import org.springframework.web.client.RestTemplate
 class FundOutboundAdapter(
     private val apiRestTemplate: RestTemplate
 ) {
-
     fun buyFund(fundBuyingReq: FundBuyingReq): FundBuyingRes? {
         return apiRestTemplate.postForObject(
             "http://localhost:8082/api/v1/test-post",

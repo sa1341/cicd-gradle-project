@@ -4,6 +4,7 @@ import com.fasterxml.jackson.databind.ObjectMapper
 import com.github.tomakehurst.wiremock.client.WireMock.getRequestedFor
 import com.github.tomakehurst.wiremock.client.WireMock.postRequestedFor
 import com.github.tomakehurst.wiremock.client.WireMock.urlEqualTo
+import com.junyoung.cicdgradleproject.config.Phase
 import com.junyoung.cicdgradleproject.config.WireMockBeanFactory
 import com.junyoung.cicdgradleproject.config.WireMockContextInitializer
 import com.junyoung.cicdgradleproject.util.WireMockUtils
@@ -19,13 +20,14 @@ import org.springframework.web.client.postForObject
 
 @ContextConfiguration(initializers = [WireMockContextInitializer::class])
 @SpringBootTest
-@ActiveProfiles("test")
+@ActiveProfiles("local")
 class WireMockExam @Autowired constructor(
     @Value("\${wiremock.server.port}")
     private val mockPort: String,
     private val apiRestTemplate: RestTemplate,
     private val wireMockBeanFactory: WireMockBeanFactory,
-    private val restTemplateObjectMapper: ObjectMapper
+    private val restTemplateObjectMapper: ObjectMapper,
+    private val phase: Phase
 ) {
     private val url = "/test/wire-mock"
     private val wireMockServer = wireMockBeanFactory.fundWireMock()
@@ -38,7 +40,7 @@ class WireMockExam @Autowired constructor(
 
     @Test
     fun `미리 정의된 stub를 사용한 wiremock 테스트`() {
-
+        println("Phase Domain = ${phase.domain}")
         val responseBody = restTemplateObjectMapper.writeValueAsString(TestData("junyoung", 32))
 
         // given
@@ -57,7 +59,6 @@ class WireMockExam @Autowired constructor(
 
     @Test
     fun `json 파일에 정의된 stub를 사용한 wiremock 테스트`() {
-
         // given
         val getUrl = "/stub/wire-mock"
         println("SIZE = ${wireMockServer.stubMappings.size}")

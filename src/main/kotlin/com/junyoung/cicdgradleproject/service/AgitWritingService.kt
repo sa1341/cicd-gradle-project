@@ -24,9 +24,9 @@ class AgitWritingService(
 
     fun writeDailyPost(agitPostReq: AgitPostReq): AgitPostRes {
         val task = Task(templateName = "펀드/연금 일일점검", assignees = mutableListOf("jean.calm"))
-        val agitPostReq = AgitPostReq(text = createText(), task)
+        val req = AgitPostReq(text = createText(), task)
 
-        val requestData = mapper.writeValueAsString(agitPostReq)
+        val requestData = mapper.writeValueAsString(req)
         logger.debug { "Request Body = $requestData" }
 
         val httpPost = HttpPost(serviceUrl)
@@ -34,10 +34,10 @@ class AgitWritingService(
 
         // val response = httpClient.execute(httpPost)
         // val agitPostRes = mapper.readValue(EntityUtils.toString(response.entity), AgitPostRes::class.java)
-        val agitPostRes = AgitPostRes(status = "SUCCESS", id = 1, "https://agit.kakaopaysec.com")
-        logger.debug { "response: $agitPostRes" }
+        val res = AgitPostRes(status = "SUCCESS", id = 1, "https://agit.kakaopaysec.com")
+        logger.debug { "response: $res" }
 
-        return agitPostRes
+        return res
     }
 
     private fun createText(): String {

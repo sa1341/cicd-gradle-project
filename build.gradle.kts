@@ -11,6 +11,7 @@ plugins {
     kotlin("plugin.jpa") version "1.4.32" // JPA를 사용하기 위한 플러그인
     kotlin("kapt") version "1.7.10"
     id("java-test-fixtures")
+    id("org.jetbrains.kotlinx.kover") version "0.6.1"
 }
 
 val querydslVersion = "5.0.0"

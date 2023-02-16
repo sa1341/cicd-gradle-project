@@ -13,7 +13,7 @@ class WireMockContextInitializer : ApplicationContextInitializer<ConfigurableApp
     override fun initialize(applicationContext: ConfigurableApplicationContext) {
         val wmServer = WireMockServer(
             WireMockConfiguration()
-                .port(8090)
+                .dynamicPort()
                 .withRootDirectory("src/test/resources/wiremock")
         )
         wmServer.start()
