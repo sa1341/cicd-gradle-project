@@ -1,2 +1,70 @@
 server:
   port: 8083
+spring:
+  application:
+    name: cicd-gradle
+agit:
+  service:
+    url: https://agit.com/send
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: prometheus
+  metrics:
+    distribution:
+      percentiles:
+        http:
+          server:
+            requests: 0.5,0.9,0.95,0.99 # enable percentile
+      percentiles-histogram:
+        http:
+          server:
+            requests: false
+    tags:
+      application: ${spring.application.name}
+
+  endpoint:
+    health:
+      show-details: always
+      circuitbreakers:
+        enabled: true
+      ratelimiters:
+        enabled: true
+
+resilience4j:
+  circuitbreaker:
+    configs:
+      default:
+        registerHealthIndicator: true
+        minimum-number-of-calls: 100
+        failure-rate-threshold: 50
+        slow-call-duration-threshold: 60000
+        slow-call-rate-threshold: 100
+        permitted-number-of-calls-in-half-open-state: 10
+    instances:
+      money:
+        base-config: default
+        wait-duration-in-open-state: 30000
+        record-exceptions:
+          - org.springframework.web.client.RestClientException
+          - java.util.concurrent.TimeoutException
+          - java.io.IOException
+        ignore-exceptions:
+          - java.lang.Exception
+  retry:
+    configs:
+      default:
+        max-attempts: 3
+        wait-duration: 500
+    instances:
+      money:
+        base-config: default
+        retry-exceptions:
+          - java.lang.RuntimeException
+          - org.springframework.web.client.RestClientException
+          - java.util.concurrent.TimeoutException
+          - java.io.IOException
+        ignore-exceptions:
+          - java.lang.Exception
