@@ -2,14 +2,17 @@ package com.junyoung.cicdgradleproject.mockk
 
 import com.junyoung.cicdgradleproject.mockk.code.Adder
 import com.junyoung.cicdgradleproject.mockk.code.Divider
+import com.junyoung.cicdgradleproject.mockk.code.Order
 import io.kotest.matchers.shouldBe
 import io.mockk.Called
 import io.mockk.every
 import io.mockk.mockk
+import io.mockk.mockkObject
 import io.mockk.slot
 import io.mockk.spyk
 import io.mockk.verify
 import io.mockk.verifySequence
+import org.junit.jupiter.api.Assertions.assertThrows
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
 
@@ -31,6 +34,22 @@ class MockkBasicExam {
         every { mock1.call(or(less(5), eq(5))) } returns -1
         val res2 = mock1.call(3)
         res2 shouldBe -1
+    }
+
+    @Test
+    @DisplayName("예외를 던지는 stub를 정의한다")
+    fun `예외를 던지는 stub를 정의한다`() {
+        // given
+        val mock = mockk<Adder>()
+        every { mock.add(any(), any()) } throws IllegalArgumentException("Args is not valid")
+
+        // when
+        val result = assertThrows(IllegalArgumentException::class.java) {
+            mock.add(1, 2)
+        }
+
+        // then
+        result.message shouldBe "Args is not valid"
     }
 
     @Test
@@ -107,7 +126,7 @@ class MockkBasicExam {
 
     @Test
     @DisplayName("spies는 객체의 기존 메서드를 호출하는 동안 호출되어지는 다른 메서드도 동시에 행위를 검증하기 위해 제공됩니다.")
-    fun spiesTest() {
+    fun spyTest1() {
         // given
         val spy = spyk<Adder>()
 
@@ -120,6 +139,43 @@ class MockkBasicExam {
         verify { spy.add(4, 5) }
         verify { spy.magnify(5) }
     }
+
+    @Test
+    @DisplayName("spy를 사용하면 테스트에 필요한 프로퍼티, 메서드만 stub해서 사용 할 수 있음")
+    fun spyTest2() {
+        // given
+        val order = mockk<Order>() {
+            every { orderAmount } returns 19_800
+            every { deliveryFee } returns 2_500
+        }
+
+        // when
+        // spy와 mock을 혼합해서 사용 가능함. 참고로 spy는 찐 객체를 생성함.
+        val amountForPayment = spyk(order).getAmountForPayment()
+        println("amountForPayment = $amountForPayment")
+
+        // then
+        assert(19_800 + 2_500 == amountForPayment)
+    }
+
+    @Test
+    @DisplayName("mockObject 메서드는 싱글톤 객체를 mocking 합니다. 행위를 정의하지 않으면 실제 정의된 메서드를 호출합니다.")
+    fun `싱글톤 객체를 mocking 한다`() {
+        // given
+        mockkObject(Calculator)
+
+        // when
+        println(Calculator.add(1, 3))
+
+        // then
+        verify {
+            Calculator.add(1, 3)
+        }
+    }
+}
+
+object Calculator {
+    fun add(a: Int, b: Int) = a + b
 }
 
 class Mock {
