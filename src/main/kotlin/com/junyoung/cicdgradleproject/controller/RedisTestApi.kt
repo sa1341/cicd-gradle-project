@@ -2,6 +2,7 @@ package com.junyoung.cicdgradleproject.controller
 
 import com.junyoung.cicdgradleproject.const.FundType
 import com.junyoung.cicdgradleproject.domain.product.FundProduct
+import com.junyoung.cicdgradleproject.dto.FundBuyingReq
 import com.junyoung.cicdgradleproject.service.RedisFundService
 import mu.KotlinLogging
 import org.springframework.http.ResponseEntity
@@ -43,5 +44,24 @@ class RedisTestApi(
             logger.debug { "FundProduct Name: ${it.name}" }
         }
         return ResponseEntity.ok().body("success")
+    }
+
+    @GetMapping("/save-redis-object")
+    fun saveRedisObject(): String {
+        val fundBuyingReq = FundBuyingReq(
+            accountNumber = "02000162758",
+            fundCod = "200601",
+            name = "jean.calm",
+            age = 31
+        )
+
+        redisFundService.saveRedisObject(fundBuyingReq)
+        return "Success"
+    }
+
+    @GetMapping("/get-redis-object")
+    fun getRedisObject(): FundBuyingReq? {
+        val (accountNumber, fundCod) = "02000162758" to "200601"
+        return redisFundService.getRedisObject(accountNumber, fundCod)
     }
 }

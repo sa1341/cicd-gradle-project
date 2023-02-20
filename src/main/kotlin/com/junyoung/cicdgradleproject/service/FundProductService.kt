@@ -16,9 +16,7 @@ class FundProductService(
 
     @Transactional(readOnly = true)
     fun getFundProduct(fundCode: String): FundProductEntity? {
-        return fundProductRepository.findByFundCode(fundCode)?.let {
-            it
-        } ?: kotlin.run {
+        return fundProductRepository.findByFundCode(fundCode) ?: kotlin.run {
             throw RuntimeException("해당 펀드코드가 존재하지 않습니다.")
         }
     }
@@ -27,7 +25,7 @@ class FundProductService(
     fun saveFundProduct(fundProductReq: FundProductReq) {
         val fundProduct = FundProductEntity(
             fundProductId = 1234L,
-            fundCode = "260005",
+            fundCode = fundProductReq.fundCode,
             ledgerStatus = "10",
             newCovenantAvailable = true,
             additionalBuyAvailable = true,
