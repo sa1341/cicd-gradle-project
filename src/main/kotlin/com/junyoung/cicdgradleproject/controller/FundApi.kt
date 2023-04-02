@@ -5,6 +5,7 @@ import com.junyoung.cicdgradleproject.dto.DateType
 import com.junyoung.cicdgradleproject.dto.FundBuyingReq
 import com.junyoung.cicdgradleproject.dto.FundBuyingRes
 import com.junyoung.cicdgradleproject.dto.FundProductReq
+import com.junyoung.cicdgradleproject.dto.FundProductRes
 import com.junyoung.cicdgradleproject.service.FundBuyingService
 import com.junyoung.cicdgradleproject.service.FundProductService
 import mu.KotlinLogging
@@ -31,6 +32,13 @@ class FundApi(
     fun getFundProduct(@PathVariable(required = true) fundCode: String): FundProductEntity? {
         logger.info { "fundCode = $fundCode" }
         return fundProductService.getFundProduct(fundCode = fundCode)
+    }
+
+    @PostMapping("/funds/{fundCode}")
+    fun getFundProductInfo(@RequestBody fundProductReq: FundProductReq): FundProductRes? {
+        logger.info { "fundCode = $fundProductReq" }
+        fundProductService.getFundProduct(fundProductReq.fundCode)
+        return FundProductRes(fundCode = fundProductReq.fundCode)
     }
 
     @PostMapping("/funds/create-fund")

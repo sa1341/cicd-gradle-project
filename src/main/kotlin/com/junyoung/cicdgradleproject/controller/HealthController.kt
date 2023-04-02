@@ -6,6 +6,6 @@ import org.springframework.web.bind.annotation.RestController
 @RestController
 class HealthController {
 
-    @GetMapping("/ping")
+    @GetMapping("/api/ping")
     fun ping() = "pong"
 }
