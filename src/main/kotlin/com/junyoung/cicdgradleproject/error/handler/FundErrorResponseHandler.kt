@@ -1,6 +1,7 @@
 package com.junyoung.cicdgradleproject.error.handler
 
 import com.fasterxml.jackson.databind.ObjectMapper
+import com.junyoung.cicdgradleproject.error.exception.CommonError
 import com.junyoung.cicdgradleproject.error.exception.FundAccidentException
 import com.junyoung.cicdgradleproject.error.exception.FundErrorResponse
 import mu.KotlinLogging
@@ -20,11 +21,7 @@ class FundErrorResponseHandler(
 
     override fun handleError(response: ClientHttpResponse) {
         val res = StreamUtils.copyToString(response.body, Charset.defaultCharset())
-        val errorRes = errorHandlerObjectMapper.readValue(res, FundErrorResponse::class.java)
+        val errorRes = errorHandlerObjectMapper.readValue(res, CommonError::class.java)
         logger.error { "Error Response = $errorRes" }
-
-        if (errorRes.errorCode == FundErrorResponse.FundErrorCode.BANK_ACCOUNT_BLOCKED.name) {
-            throw FundAccidentException(errorRes)
-        }
     }
 }

@@ -10,6 +10,12 @@ interface ResultCode {
     val status: HttpStatus
 }
 
+data class CommonError(
+    val message: String,
+    val status: Int,
+    val errors: MutableList<String>
+)
+
 @JsonNaming(PropertyNamingStrategies.SnakeCaseStrategy::class)
 data class FundErrorResponse(
     val errorCode: String,
@@ -43,6 +49,16 @@ data class ErrorResult(
             e: FundException
         ): ErrorResult {
             return ErrorResult(e.errorResult.errorCode, e.errorResult.errorMessage, e.errorResult.status)
+        }
+
+        fun create(
+            e: Exception
+        ): ErrorResult {
+            return ErrorResult(
+                HttpStatus.INTERNAL_SERVER_ERROR.value().toString(),
+                "SERVER_ERROR",
+                HttpStatus.INTERNAL_SERVER_ERROR
+            )
         }
     }
 }

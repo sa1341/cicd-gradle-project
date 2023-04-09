@@ -52,17 +52,6 @@ class IoLoggingFilter(
     ) {
         filterChain.doFilter(cachingRequest, cachingResponse)
 
-       /* log.info {
-            """RESPONSE
-                | Request URI : ${cachingRequest.requestUrlWithQueryString}
-                | Request Method : ${cachingRequest.method}
-                | Request Header : ${cachingRequest.joinedHeaderString}
-                | Request Body : ${byteArrayToJson(cachingRequest.contentAsByteArray)}
-                | Response Status : ${cachingResponse.status}
-                | Response Body : ${byteArrayToJson(cachingResponse.contentAsByteArray)}
-            """.trimMargin()
-        }*/
-
         apiJsonLogger.info(
             startTime = LocalDateTime.now(),
             request = cachingRequest,

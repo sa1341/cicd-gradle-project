@@ -29,6 +29,8 @@ class ApiJsonLogger(
         val phase: String,
         val appName: String,
         val elapsedTime: Long,
+        val requestBody: String,
+        val responseBody: String,
         val logType: JsonLogType = JsonLogType.INGRESS
     )
 
@@ -59,7 +61,9 @@ class ApiJsonLogger(
             appName = appName,
             elapsedTime = ChronoUnit.MILLIS.between(startTime, LocalDateTime.now()),
             requestTime = startTime.toString(),
-            logType = JsonLogType.EGRESS
+            requestBody = requestBody,
+            responseBody = responseBody,
+            logType = JsonLogType.INGRESS
         )
         logger.info { objectMapper.writeValueAsString(logFormat) }
     }

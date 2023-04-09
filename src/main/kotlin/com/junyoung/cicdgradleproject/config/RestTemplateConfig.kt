@@ -64,17 +64,23 @@ private class ApiLoggingInterceptor(
             | Request Body : $requestBody 
             """.trimMargin()
         )
-        return execution.execute(request, body).also {
-            log.info(
-                """RESPONSE
+
+        try {
+            return execution.execute(request, body).also {
+                log.info(
+                    """RESPONSE
                 | Request URI : ${request.uri} 
                 | Request Method : ${request.method} 
                 | Request Header : ${request.headers} 
                 | Request Body : $requestBody 
                 | Response Status : ${it.statusCode} 
                 | Response Body : ${byteArrayToJson(it.body.readBytes())}
-                """.trimMargin()
-            )
+                    """.trimMargin()
+                )
+            }
+        } catch (e: Exception) {
+            log.error { "ERROR: $e" }
+            throw e
         }
     }
 
